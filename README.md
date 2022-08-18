@@ -2,8 +2,9 @@
 This is a repository for systems that I have made. Most systems in this repository will require you to have a MongoDB database connected via the `mongoose` package. [Here is a video](https://www.youtube.com/watch?v=z_e6E-okvxs) to show you how to connect to a MongoDB database.
 
 ## Dependencies
-- discord.js (`npm i discord.js`)
-- mongoose (`npm i mongoose`)
+- [Node.js](https://nodejs.org) (`v16.9 or higher`)
+- [discord.js](https://discord.js.org/) (`npm i discord.js`)
+- [mongoose](https://mongoosejs.com/) (`npm i mongoose`)
 
 Some projects may need some packages to work. If a certain system needs a package to work it will be written in the `README.md` file in the project folder.
 
