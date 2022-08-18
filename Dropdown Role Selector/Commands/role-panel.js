@@ -1,9 +1,6 @@
 const { ChatInputCommandInteraction, Client, EmbedBuilder, SelectMenuBuilder, ActionRowBuilder, ApplicationCommandOptionType, PermissionsBitField, ApplicationCommandData } = require("discord.js");
 
-/**
- * @type {ApplicationCommandData}
- */
-const data = {
+module.exports = {
     name: "rpanel",
     description: "Setup your dropdown role system",
     defaultMemberPermissions: PermissionsBitField.Flags.ManageGuild,
@@ -23,12 +20,6 @@ const data = {
             required: true
         }
     ],
-    toJSON: () => ({ ...data })
-};
-
-module.exports = {
-    data,
-    ...data,
     /**
      * @param {ChatInputCommandInteraction} interaction
      * @param {Client} client
