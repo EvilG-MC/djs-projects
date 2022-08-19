@@ -117,6 +117,13 @@ module.exports = {
                         return interaction.reply({ embeds: [embed], ephemeral: true });
                     }
 
+                    if (data.Paused === (toggle === "end" ? true : false)) {
+                        embed
+                            .setColor("Red")
+                            .setDescription(`This giveaway is paused. Unpause it before ending the giveaway`);
+                        return interaction.reply({ embeds: [embed], ephemeral: true });
+                    }
+
                     endGiveaway(message, (toggle === "end" ? false : true));
 
                     embed
