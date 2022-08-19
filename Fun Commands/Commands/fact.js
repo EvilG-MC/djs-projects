@@ -15,7 +15,7 @@ module.exports = {
                 { name: "Cat", value: "cat" },
                 { name: "Panda", value: "panda" },
                 { name: "Fox", value: "fox" },
-                { name: "Bird", value: "birb" },
+                { name: "Bird", value: "bird" },
                 { name: "Koala", value: "koala" },
             ]
         }
@@ -26,7 +26,7 @@ module.exports = {
     async execute(interaction) {
         await interaction.deferReply();
         const option = interaction.options.getString("animal");
-        const imageObject = await axios.get(`https://some-random-api.ml/img/${option}`);
+        const imageObject = await axios.get(`https://some-random-api.ml/img/${option.replace("bird", "birb")}`);
         const factObject = await axios.get(`https://some-random-api.ml/facts/${option}`);
 
         const attachment = new AttachmentBuilder(imageObject.data.link, { name: "image.png" });

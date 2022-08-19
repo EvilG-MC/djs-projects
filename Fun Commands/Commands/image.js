@@ -133,30 +133,29 @@ module.exports = {
      * @param {Client} client
      */
     async execute(interaction, client) {
-        const { options } = interaction;
-        const subcommand = options.getSubcommand();
+        const subcommand = interaction.options.getSubcommand();
         await interaction.deferReply();
         const embed = new EmbedBuilder()
             .setColor("Red")
             .setDescription(`An error occurred. Please try again later`);
 
         if (subcommand === "car") {
-            await axios.get("https://api.popcat.xyz/car").then((response) => {
-                const attachment = new AttachmentBuilder(`${response.data.image}`, { name: "image.png" });
+            axios.get("https://api.popcat.xyz/car").then((response) => {
+                const attachment = new AttachmentBuilder(response.data.image, { name: "image.png" });
                 return interaction.editReply({ files: [attachment] });
-            }).catch((err) => interaction.editReply({ embeds: [embed] }));
+            }).catch(() => interaction.editReply({ embeds: [embed] }));
         }
 
         if (["wanted", "gun", "drip", "pet", "clown"].includes(subcommand)) {
-            const user = options.getUser("user") || interaction.user;
-            const attachment = new AttachmentBuilder(`https://api.popcat.xyz/${subcommand}?image=${user.avatarURL()}`, { name: "image.png" });
-            interaction.editReply({ files: [attachment] }).catch((err) => interaction.editReply({ embeds: [embed] }));
+            const user = interaction.options.getUser("user") || interaction.user;
+            const attachment = new AttachmentBuilder(`https://api.popcat.xyz/${subcommand}?image=${encodeURIComponent(user.avatarURL())}`, { name: "image.png" });
+            interaction.editReply({ files: [attachment] }).catch(() => interaction.editReply({ embeds: [embed] }));
         }
 
         if (["alert", "biden", "facts"].includes(subcommand)) {
-            const text = options.getString("text");
-            const attachment = new AttachmentBuilder(`https://api.popcat.xyz/${subcommand}?text=${text.replace(/ +/g, "+")}`, { name: "image.png" });
-            interaction.editReply({ files: [attachment] }).catch((err) => interaction.editReply({ embeds: [embed] }));
+            const text = interaction.options.getString("text");
+            const attachment = new AttachmentBuilder(`https://api.popcat.xyz/${subcommand}?text=${encodeURIComponent(text)}`, { name: "image.png" });
+            interaction.editReply({ files: [attachment] }).catch(() => interaction.editReply({ embeds: [embed] }));
         }
     },
 };

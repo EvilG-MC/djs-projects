@@ -20,14 +20,14 @@ module.exports = {
         const embed = new EmbedBuilder();
         await interaction.deferReply();
 
-        await axios.get(`https://some-random-api.ml/lyrics?title=${interaction.options.getString("title")}`).then(async (response) => {
+        axios.get(`https://some-random-api.ml/lyrics?title=${encodeURIComponent(interaction.options.getString("title"))}`).then(async (response) => {
             embed
                 .setColor("NotQuiteBlack")
                 .setAuthor({ name: response.data.title })
                 .setURL(response.data.links.genius)
                 .setThumbnail(response.data.thumbnail.genius)
                 .setFooter({ text: `Song By ${response.data.author}` })
-                .setDescription(`${response.data.lyrics.slice(0, 4096)}`);
+                .setDescription(response.data.lyrics.slice(0, 4096));
             
             await interaction.editReply({ embeds: [embed] });
         }).catch(() => {
