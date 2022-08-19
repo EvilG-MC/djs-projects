@@ -97,7 +97,7 @@ module.exports = {
                 if (!data) {
                     embed
                         .setColor("Red")
-                        .setDescription(`${client.data.rejected} Could not find any giveaway with that message ID`);
+                        .setDescription(`Could not find any giveaway with that message ID`);
                     return interaction.reply({ embeds: [embed], ephemeral: true });
                 }
 
@@ -105,7 +105,7 @@ module.exports = {
                 if (!message) {
                     embed
                         .setColor("Red")
-                        .setDescription(`${client.data.rejected} This giveaway doesn't exist`);
+                        .setDescription(`This giveaway doesn't exist`);
                     return interaction.reply({ embeds: [embed], ephemeral: true });
                 }
 
@@ -113,7 +113,7 @@ module.exports = {
                     if (data.Ended === (toggle === "end" ? true : false)) {
                         embed
                             .setColor("Red")
-                            .setDescription(`${client.data.rejected} This giveaway has ${toggle === "end" ? "already ended" : "not ended"}`);
+                            .setDescription(`This giveaway has ${toggle === "end" ? "already ended" : "not ended"}`);
                         return interaction.reply({ embeds: [embed], ephemeral: true });
                     }
 
@@ -121,7 +121,7 @@ module.exports = {
 
                     embed
                         .setColor("Green")
-                        .setDescription(`${client.data.approved} The giveaway has ${toggle === "end" ? "ended" : "been rerolled"}`);
+                        .setDescription(`The giveaway has ${toggle === "end" ? "ended" : "been rerolled"}`);
                     return interaction.reply({ embeds: [embed], ephemeral: true });
                 }
 
@@ -129,7 +129,7 @@ module.exports = {
                     if (data.Paused === (toggle === "pause" ? true : false)) {
                         embed
                             .setColor("Red")
-                            .setDescription(`${client.data.rejected} This giveaway is already ${toggle === "pause" ? "paused" : "unpaused"}`);
+                            .setDescription(`This giveaway is already ${toggle === "pause" ? "paused" : "unpaused"}`);
                         return interaction.reply({ embeds: [embed], ephemeral: true });
                     }
 
@@ -159,7 +159,7 @@ module.exports = {
 
                     embed
                         .setColor("Green")
-                        .setDescription(`${client.data.approved} The giveaway has been ${toggle === "pause" ? "paused" : "unpaused"}`);
+                        .setDescription(`The giveaway has been ${toggle === "pause" ? "paused" : "unpaused"}`);
                     interaction.reply({ embeds: [embed], ephemeral: true });
 
                     if (toggle === "unpause" && (data.EndTime * 1000) < Date.now()) endGiveaway(message);
@@ -174,7 +174,7 @@ module.exports = {
                     message.delete();
                     embed
                         .setColor("Green")
-                        .setDescription(`${client.data.approved} The giveaway has been deleted`);
+                        .setDescription(`The giveaway has been deleted`);
                     interaction.reply({ embeds: [embed], ephemeral: true });
                 }
             }

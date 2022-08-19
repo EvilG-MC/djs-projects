@@ -22,14 +22,14 @@ module.exports = {
         if (isNaN(winners) || !isFinite(winners) || winners < 1) {
             embed
                 .setColor("Red")
-                .setDescription(`${client.data.rejected} Please provide a valid winner count`);
+                .setDescription(`Please provide a valid winner count`);
             return interaction.reply({ embeds: [embed], ephemeral: true });
         }
 
         if (duration === undefined) {
             embed
                 .setColor("Red")
-                .setDescription(`${client.data.rejected} Please provide a valid duration`);
+                .setDescription(`Please provide a valid duration`);
             return interaction.reply({ embeds: [embed], ephemeral: true });
         }
 

@@ -138,7 +138,7 @@ module.exports = {
         await interaction.deferReply();
         const embed = new EmbedBuilder()
             .setColor("Red")
-            .setDescription(`${client.data.rejected} An error occurred. Please try again later`);
+            .setDescription(`An error occurred. Please try again later`);
 
         if (subcommand === "car") {
             await axios.get("https://api.popcat.xyz/car").then((response) => {

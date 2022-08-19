@@ -16,14 +16,14 @@ module.exports = {
         if (!roleFetched) {
             embed
                 .setColor("Red")
-                .setDescription(`${client.data.rejected} This role doesn't exist`);
+                .setDescription(`This role doesn't exist`);
             return interaction.reply({ embeds: [embed], ephemeral: true });
         }
 
         if (roleFetched.managed || !roleFetched.editable) {
             embed
                 .setColor("Red")
-                .setDescription(`${client.data.rejected} I cannot give this role to you`);
+                .setDescription(`I cannot give this role to you`);
             return interaction.reply({ embeds: [embed], ephemeral: true });
         }
 
@@ -31,7 +31,7 @@ module.exports = {
 
         embed
             .setColor("Green")
-            .setDescription(`${client.data.approved} ${hasRole ? "Removed" : "Added"} the ${roleFetched} role ${hasRole ? "from" : "to"} you`);
+            .setDescription(`${hasRole ? "Removed" : "Added"} the ${roleFetched} role ${hasRole ? "from" : "to"} you`);
 
         const errorEmbed = new EmbedBuilder()
             .setColor("Red")

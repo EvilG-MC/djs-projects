@@ -16,14 +16,14 @@ module.exports = {
         if (!data) {
             embed
                 .setColor("Red")
-                .setDescription(`${client.data.rejected} There is no data in the database`);
+                .setDescription(`There is no data in the database`);
             return interaction.reply({ embeds: [embed], ephemeral: true });
         }
 
         if (data.Users.includes(interaction.user.id)) {
             embed
                 .setColor("Red")
-                .setDescription(`${client.data.rejected} You have already voted for this poll`);
+                .setDescription(`You have already voted for this poll`);
             return interaction.reply({ embeds: [embed], ephemeral: true });
         }
 
@@ -36,7 +36,7 @@ module.exports = {
 
         embed
             .setColor("Green")
-            .setDescription(`${client.data.approved} Your answer has been given`);
+            .setDescription(`Your answer has been given`);
         interaction.reply({ embeds: [embed], ephemeral: true });
 
         interaction.message.edit({ embeds: [newEmbed] });

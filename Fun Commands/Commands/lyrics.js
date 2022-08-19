@@ -33,7 +33,7 @@ module.exports = {
         }).catch(() => {
             embed
                 .setColor("Red")
-                .setDescription(`${client.data.rejected} Couldn't find any song with that title`);
+                .setDescription(`Couldn't find any song with that title`);
             return interaction.editReply({ embeds: [embed], ephemeral: true });
         });
     },

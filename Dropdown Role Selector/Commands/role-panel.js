@@ -33,7 +33,7 @@ module.exports = {
         if (!roleIds.length) {
             embed
                 .setColor("Red")
-                .setDescription(`${client.data.rejected} You haven't provided valid roles`);
+                .setDescription(`You haven't provided valid roles`);
             return interaction.reply({ embeds: [embed], ephemeral: true });
         }
 
@@ -49,7 +49,7 @@ module.exports = {
         if (invalidRoles.length) {
             embed
                 .setColor("Red")
-                .setDescription(`${client.data.rejected} You have provided invalid roles: ${invalidRoles.map((r) => r).join(", ")}`);
+                .setDescription(`You have provided invalid roles: ${invalidRoles.map((r) => r).join(", ")}`);
             return interaction.reply({ embeds: [embed] });
         }
 
@@ -68,12 +68,12 @@ module.exports = {
         await interaction.channel.send({ embeds: [mainEmbed], components: [rolesMenu] }).then(() => {
             embed
                 .setColor("Green")
-                .setDescription(`${client.data.approved} Dropdown menu has been created`);
+                .setDescription(`Dropdown menu has been created`);
             return interaction.reply({ embeds: [embed], ephemeral: true });
         }).catch(() => {
             embed
                 .setColor("Red")
-                .setDescription(`${client.data.rejected} There was an error while trying to setup the dropdown role system`);
+                .setDescription(`There was an error while trying to setup the dropdown role system`);
             return interaction.reply({ embeds: [embed], ephemeral: true });
         });
     },
