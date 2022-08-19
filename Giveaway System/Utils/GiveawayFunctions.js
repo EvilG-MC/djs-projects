@@ -22,20 +22,14 @@ async function endGiveaway(message, reroll = false) {
         while (winnerIdArray.length < data.Winners) winnerIdArray.push(getMultipleRandom(data.Entered, data.Winners - winnerIdArray.length));
     } else winnerIdArray.push(...data.Entered);
 
-    const disableButton = new ActionRowBuilder().addComponents(
-        new ButtonBuilder()
-            .setCustomId("giveaway-join")
-            .setEmoji("🎉")
-            .setStyle(ButtonStyle.Success)
-            .setLabel("Join Here")
+    const disableButton = ActionRowBuilder.from(message.components[0]).setComponents(
+        ButtonBuilder.from(message.components[0].components[0])
             .setDisabled(true)
     );
     
-    const endGiveawayEmbed = new EmbedBuilder()
+    const endGiveawayEmbed = EmbedBuilder.from(message.embeds[0])
         .setColor("NotQuiteBlack")
-        .setTitle(`${data.Prize}`)
-        .setDescription(`**Hosted By**: <@${data.HostedBy}>\n**Winners**: ${winnerIdArray.map((user) => `<@${user}>`).join(", ") || "None"} \n**Ended**: <t:${data.EndTime}:R> (<t:${data.EndTime}>)`)
-        .setTimestamp(data.EndTime * 1000);
+        .setDescription(`**Hosted By**: <@${data.HostedBy}>\n**Winners**: ${winnerIdArray.map((user) => `<@${user}>`).join(", ") || "None"} \n**Ended**: <t:${data.EndTime}:R> (<t:${data.EndTime}>)`);
     
     await DB.findOneAndUpdate({
         GuildID: data.GuildID,
@@ -47,6 +41,4 @@ async function endGiveaway(message, reroll = false) {
     message.reply({ content: winnerIdArray.length > 0 ? `Congratulations ${winnerIdArray.map((user) => `<@${user}>`).join(", ")}! You won **${data.Prize}**` : "No winner was decided because no one entered the giveaway" });
 }
 
-module.exports = {
-    endGiveaway
-};
+module.exports = { endGiveaway };

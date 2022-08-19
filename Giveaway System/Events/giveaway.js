@@ -22,14 +22,14 @@ module.exports = {
         if (isNaN(winners) || !isFinite(winners) || winners < 1) {
             embed
                 .setColor("Red")
-                .setDescription(`Please provide a valid winner count`);
+                .setDescription("Please provide a valid winner count");
             return interaction.reply({ embeds: [embed], ephemeral: true });
         }
 
         if (duration === undefined) {
             embed
                 .setColor("Red")
-                .setDescription(`Please provide a valid duration`);
+                .setDescription("Please provide a valid duration");
             return interaction.reply({ embeds: [embed], ephemeral: true });
         }
 
@@ -63,7 +63,7 @@ module.exports = {
                 Entered: []
             }).then((data) => {
                 setTimeout(async () => {
-                    if (data.Ended === false) endGiveaway(message);
+                    if (!data.Ended) endGiveaway(message);
                 }, duration);
             });
         });

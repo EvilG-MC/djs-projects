@@ -97,7 +97,7 @@ module.exports = {
                 if (!data) {
                     embed
                         .setColor("Red")
-                        .setDescription(`Could not find any giveaway with that message ID`);
+                        .setDescription("Could not find any giveaway with that message ID");
                     return interaction.reply({ embeds: [embed], ephemeral: true });
                 }
 
@@ -105,7 +105,7 @@ module.exports = {
                 if (!message) {
                     embed
                         .setColor("Red")
-                        .setDescription(`This giveaway doesn't exist`);
+                        .setDescription("This giveaway doesn't exist");
                     return interaction.reply({ embeds: [embed], ephemeral: true });
                 }
 
@@ -120,7 +120,7 @@ module.exports = {
                     if (data.Paused === (toggle === "end" ? true : false)) {
                         embed
                             .setColor("Red")
-                            .setDescription(`This giveaway is paused. Unpause it before ending the giveaway`);
+                            .setDescription("This giveaway is paused. Unpause it before ending the giveaway");
                         return interaction.reply({ embeds: [embed], ephemeral: true });
                     }
 
@@ -133,6 +133,13 @@ module.exports = {
                 }
 
                 if (["pause", "unpause"].includes(toggle)) {
+                    if (data.Ended) {
+                        embed
+                            .setColor("Red")
+                            .setDescription("This giveaway has already ended");
+                        return interaction.reply({ embeds: [embed], ephemeral: true });
+                    }
+
                     if (data.Paused === (toggle === "pause" ? true : false)) {
                         embed
                             .setColor("Red")
@@ -140,20 +147,13 @@ module.exports = {
                         return interaction.reply({ embeds: [embed], ephemeral: true });
                     }
 
-                    const button = new ActionRowBuilder().addComponents(
-                        new ButtonBuilder()
-                            .setCustomId("giveaway-join")
-                            .setEmoji("🎉")
-                            .setStyle(ButtonStyle.Success)
-                            .setLabel("Join Here")
-                            .setDisabled(toggle === "pause" ? true : false)
+                    const button = ActionRowBuilder.from(message.components[0]).setComponents(
+                        ButtonBuilder.from(message.components[0].components[0])
+                            .setDisabled(true)
                     );
 
-                    const giveawayEmbed = new EmbedBuilder()
-                        .setColor(toggle === "pause" ? "Yellow" : "#156789")
-                        .setTitle(`${data.Prize}`)
-                        .setDescription(`**Hosted By**: <@${data.HostedBy}>\n**Winners**: ${data.Winners}\n**Ends In**: <t:${data.EndTime}:R> (<t:${data.EndTime}>)`)
-                        .setTimestamp(parseInt(data.EndTime) * 1000);
+                    const giveawayEmbed = EmbedBuilder.from(message.embeds[0])
+                        .setColor(toggle === "pause" ? "Yellow" : "#156789");
 
                     await DB.findOneAndUpdate({
                         GuildID: interaction.guild.id,
@@ -181,7 +181,7 @@ module.exports = {
                     message.delete();
                     embed
                         .setColor("Green")
-                        .setDescription(`The giveaway has been deleted`);
+                        .setDescription("The giveaway has been deleted");
                     interaction.reply({ embeds: [embed], ephemeral: true });
                 }
             }
