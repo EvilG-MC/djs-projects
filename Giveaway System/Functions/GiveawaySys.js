@@ -11,7 +11,10 @@ module.exports = (client) => {
             if (!data) return;
             if (data.Ended === true) return;
             if (data.Paused === true) return;
-            const message = (await client.guilds.cache.get(data.GuildID).channels.cache.get(data.ChannelID).messages.fetch(data.MessageID));
+            const guild = client.guilds.cache.get(data.GuildID);
+            if (!guild) return;
+
+            const message = guild.channels.cache.get(data.ChannelID)?.messages.fetch(data.MessageID);
             if (!message) return;
 
             const expireDate = (data.EndTime * 1000) - Date.now();
