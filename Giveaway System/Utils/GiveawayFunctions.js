@@ -1,4 +1,4 @@
-const { ActionRowBuilder, ButtonBuilder, EmbedBuilder, ButtonStyle } = require("discord.js");
+const { ActionRowBuilder, ButtonBuilder, EmbedBuilder } = require("discord.js");
 const DB = require("../Schemas/GiveawayDB");
 
 function getMultipleRandom(arr, num) {

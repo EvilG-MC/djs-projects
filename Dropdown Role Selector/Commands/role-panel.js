@@ -1,4 +1,4 @@
-const { ChatInputCommandInteraction, Client, EmbedBuilder, SelectMenuBuilder, ActionRowBuilder, ApplicationCommandOptionType, PermissionsBitField, ApplicationCommandData } = require("discord.js");
+const { ChatInputCommandInteraction, Client, EmbedBuilder, SelectMenuBuilder, ActionRowBuilder, ApplicationCommandOptionType, PermissionsBitField } = require("discord.js");
 
 module.exports = {
     name: "rpanel",
