@@ -7,10 +7,14 @@ function getMultipleRandom(arr, num) {
 }
 
 async function endGiveaway(message, reroll = false) {
+    if (!message.guild) return;
+    if (!message.client.guilds.cache.get(message.guild.id)) return;
+
     const data = await DB.findOne({
         GuildID: message.guild.id,
         MessageID: message.id
     });
+
     if (!data) return;
 
     if (data.Ended === true && !reroll) return;
@@ -22,14 +26,11 @@ async function endGiveaway(message, reroll = false) {
         while (winnerIdArray.length < data.Winners) winnerIdArray.push(getMultipleRandom(data.Entered, data.Winners - winnerIdArray.length));
     } else winnerIdArray.push(...data.Entered);
 
-    const disableButton = ActionRowBuilder.from(message.components[0]).setComponents(
-        ButtonBuilder.from(message.components[0].components[0])
-            .setDisabled(true)
-    );
+    const disableButton = ActionRowBuilder.from(message.components[0]).setComponents(ButtonBuilder.from(message.components[0].components[0]).setDisabled(true));
     
     const endGiveawayEmbed = EmbedBuilder.from(message.embeds[0])
         .setColor("NotQuiteBlack")
-        .setDescription(`**Hosted By**: <@${data.HostedBy}>\n**Winners**: ${winnerIdArray.map((user) => `<@${user}>`).join(", ") || "None"} \n**Ended**: <t:${data.EndTime}:R> (<t:${data.EndTime}>)`);
+        .setDescription(`**Hosted By**: <@${data.HostedBy}>\n**Winners**: ${winnerIdArray.map((user) => `<@${user}>`).join(", ") || "None"}\n**Ended**: <t:${data.EndTime}:R> (<t:${data.EndTime}>)`);
     
     await DB.findOneAndUpdate({
         GuildID: data.GuildID,
@@ -38,7 +39,7 @@ async function endGiveaway(message, reroll = false) {
     }, { Ended: true });
     
     await message.edit({ content: "🎊 **Giveaway Ended** 🎊", embeds: [endGiveawayEmbed], components: [disableButton] });
-    message.reply({ content: winnerIdArray.length > 0 ? `Congratulations ${winnerIdArray.map((user) => `<@${user}>`).join(", ")}! You won **${data.Prize}**` : "No winner was decided because no one entered the giveaway" });
+    message.reply({ content: winnerIdArray.length ? `Congratulations ${winnerIdArray.map((user) => `<@${user}>`).join(", ")}! You won **${data.Prize}**` : "No winner was decided because no one entered the giveaway" });
 }
 
 module.exports = { endGiveaway };
