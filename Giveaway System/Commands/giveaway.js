@@ -149,7 +149,7 @@ module.exports = {
 
                     const button = ActionRowBuilder.from(message.components[0]).setComponents(
                         ButtonBuilder.from(message.components[0].components[0])
-                            .setDisabled(true)
+                            .setDisabled(toggle === "pause" ? true : false)
                     );
 
                     const giveawayEmbed = EmbedBuilder.from(message.embeds[0])
