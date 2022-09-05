@@ -17,10 +17,8 @@ module.exports = (client) => {
             const message = guild.channels.cache.get(data.ChannelID)?.messages.fetch(data.MessageID);
             if (!message) return;
 
-            const expireDate = (data.EndTime * 1000) - Date.now();
-
             if ((data.EndTime * 1000) < Date.now()) endGiveaway(message);
-            else setTimeout(() => endGiveaway(message), expireDate);
+            else setTimeout(() => endGiveaway(message), (data.EndTime * 1000) - Date.now());
         });
     });
 };

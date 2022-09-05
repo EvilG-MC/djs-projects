@@ -147,20 +147,14 @@ module.exports = {
                         return interaction.reply({ embeds: [embed], ephemeral: true });
                     }
 
-                    const button = ActionRowBuilder.from(message.components[0]).setComponents(
-                        ButtonBuilder.from(message.components[0].components[0])
-                            .setDisabled(toggle === "pause" ? true : false)
-                    );
+                    const button = ActionRowBuilder.from(message.components[0]).setComponents(ButtonBuilder.from(message.components[0].components[0]).setDisabled(toggle === "pause" ? true : false));
 
-                    const giveawayEmbed = EmbedBuilder.from(message.embeds[0])
-                        .setColor(toggle === "pause" ? "Yellow" : "#156789");
+                    const giveawayEmbed = EmbedBuilder.from(message.embeds[0]).setColor(toggle === "pause" ? "Yellow" : "#156789");
 
                     await DB.findOneAndUpdate({
                         GuildID: interaction.guild.id,
                         MessageID: message.id
-                    }, {
-                        Paused: toggle === "pause" ? true : false
-                    });
+                    }, { Paused: toggle === "pause" ? true : false });
                     
                     await message.edit({ content: `🎉 **Giveaway ${toggle === "pause" ? "Paused" : "Started"}** 🎉`, embeds: [giveawayEmbed], components: [button] });
 
@@ -178,7 +172,7 @@ module.exports = {
                         MessageID: message.id
                     });
 
-                    message.delete();
+                    await message.delete();
                     embed
                         .setColor("Green")
                         .setDescription("The giveaway has been deleted");
