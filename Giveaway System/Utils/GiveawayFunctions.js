@@ -16,6 +16,7 @@ async function endGiveaway(message, reroll = false) {
     });
 
     if (!data) return;
+    if (!message.guild.channels.cache.get(data.ChannelID)?.messages.fetch(data.MessageID)) return;
 
     if (data.Ended === true && !reroll) return;
     if (data.Paused === true) return;
