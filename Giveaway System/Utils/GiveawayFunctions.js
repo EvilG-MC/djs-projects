@@ -8,6 +8,7 @@ function getMultipleRandom(arr, num) {
 
 async function endGiveaway(message, reroll = false) {
     if (!message.guild) return;
+    await message.client.guilds.fetch();
     if (!message.client.guilds.cache.get(message.guild.id)) return;
 
     const data = await DB.findOne({
