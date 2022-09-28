@@ -14,7 +14,7 @@ module.exports = (client) => {
             const guild = client.guilds.cache.get(data.GuildID);
             if (!guild) return;
 
-            const message = guild.channels.cache.get(data.ChannelID)?.messages.fetch(data.MessageID);
+            const message = await guild.channels.cache.get(data.ChannelID)?.messages.fetch(data.MessageID);
             if (!message) return;
 
             if ((data.EndTime * 1000) < Date.now()) endGiveaway(message);
