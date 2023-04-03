@@ -1,3 +1,8 @@
+
+## **DISCLAIMER**
+> This repository is a archive of the original one, i'm not the owner of this systems...<br>I only have it archived in case one day it is deleted by its original author.<br><br>Original Repo: https://github.com/CitTheDev/djs-projects
+
+
 # Discord.js Systems
 This is a repository for systems that I have made. Most systems in this repository will require you to have a MongoDB database connected via the `mongoose` package. [Here is a video](https://www.youtube.com/watch?v=z_e6E-okvxs) to show you how to connect to a MongoDB database.
 
